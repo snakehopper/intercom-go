@@ -1,7 +1,8 @@
 package intercom
 
 import (
-	"gopkg.in/intercom/intercom-go.v2/interfaces"
+	"gopkg.in/snakehopper/intercom-go.v2/interfaces"
+	"net/http"
 )
 
 // A Client manages interacting with the Intercom API.
@@ -59,10 +60,10 @@ func (c *Client) Option(opts ...option) (previous option) {
 	return previous
 }
 
-// NewClient returns a new Intercom API client, configured with the default HTTPClient.
-func NewClient(appID, apiKey string) *Client {
+// NewClient returns a new Intercom API client, configured with the default HTTPClient if tc==nil.
+func NewClient(tc *http.Client, appID, apiKey string) *Client {
 	intercom := Client{AppID: appID, APIKey: apiKey, baseURI: defaultBaseURI, debug: false, clientVersion: clientVersion}
-	intercom.HTTPClient = interfaces.NewIntercomHTTPClient(intercom.AppID, intercom.APIKey, &intercom.baseURI, &intercom.clientVersion, &intercom.debug)
+	intercom.HTTPClient = interfaces.NewIntercomHTTPClient(tc, intercom.AppID, intercom.APIKey, &intercom.baseURI, &intercom.clientVersion, &intercom.debug)
 	intercom.setup()
 	return &intercom
 }

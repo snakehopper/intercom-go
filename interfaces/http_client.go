@@ -27,8 +27,14 @@ type IntercomHTTPClient struct {
 	Debug         *bool
 }
 
-func NewIntercomHTTPClient(appID, apiKey string, baseURI, clientVersion *string, debug *bool) IntercomHTTPClient {
-	return IntercomHTTPClient{Client: &http.Client{}, AppID: appID, APIKey: apiKey, BaseURI: baseURI, ClientVersion: clientVersion, Debug: debug}
+func NewIntercomHTTPClient(tc *http.Client, appID, apiKey string, baseURI, clientVersion *string, debug *bool) IntercomHTTPClient {
+	var client *http.Client
+	if tc != nil {
+		client = tc
+	} else {
+		client = &http.Client{}
+	}
+	return IntercomHTTPClient{Client: client, AppID: appID, APIKey: apiKey, BaseURI: baseURI, ClientVersion: clientVersion, Debug: debug}
 }
 
 func (c IntercomHTTPClient) UserAgentHeader() string {
