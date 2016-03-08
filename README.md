@@ -4,9 +4,11 @@
 
 Thin client for the [Intercom](https://www.intercom.io) API.
 
+It modified to use own http.Client to make REST request.
+
 ## Install
 
-`go get gopkg.in/intercom/intercom-go.v2`
+`go get gopkg.in/snakehopper/intercom-go.v2`
 
 ## Usage
 
@@ -16,10 +18,10 @@ The first step to using Intercom's Go client is to create a client object, using
 
 ```go
 import (
-	`import intercom "gopkg.in/intercom/intercom-go.v2"`
+	`import intercom "gopkg.in/snakehopper/intercom-go.v2"`
 )
 
-ic := intercom.NewClient("appID", "apiKey")
+ic := intercom.NewClient(nil, "appID", "apiKey") //replace nil to your http.Client if needed, ex:GAE environment
 ```
 
 This client can then be used to make requests.
