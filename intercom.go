@@ -1,7 +1,7 @@
 package intercom
 
 import (
-	"github.com/intercom/intercom-go/interfaces"
+	"gopkg.in/snakehopper/intercom-go.v1/interfaces"
 	"net/http"
 )
 
